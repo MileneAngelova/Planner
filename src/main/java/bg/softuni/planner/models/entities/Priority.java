@@ -13,6 +13,7 @@ public class Priority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
+    @Enumerated(EnumType.STRING)
     private PriorityNameEnum name;
     @Column(nullable = false)
     private String description;
