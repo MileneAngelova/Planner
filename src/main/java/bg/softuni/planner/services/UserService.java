@@ -24,9 +24,9 @@ public class UserService {
         this.modelMapper = modelMapper;
         this.currentUser = currentUser;
     }
-//
-//    public boolean userExits(String username, String password) {
-//        Optional<User> byUsername = this.userRepository.findByUsernameAndPassword(username, password);
+
+//    public boolean userExits(String username) {
+//        Optional<User> byUsername = this.userRepository.findByUsername(username);
 //
 //        return byUsername.isPresent();
 //    }
@@ -45,16 +45,16 @@ public class UserService {
     }
 
     public boolean login(LoginDTO loginDTO) {
-        Optional<User> byUsernameAndPassword = this.userRepository.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
+        Optional<User> byUsername = this.userRepository.findByUsername(loginDTO.getUsername());
 
-        if (byUsernameAndPassword.isEmpty()) {
+        if (byUsername.isEmpty()) {
             return false;
         }
-        boolean passMatches = passwordEncoder.matches(loginDTO.getPassword(), byUsernameAndPassword.get().getPassword());
-        if (!passMatches) {
+
+        if (!passwordEncoder.matches(loginDTO.getPassword(), byUsername.get().getPassword())) {
             return false;
         }
-        currentUser.login(byUsernameAndPassword.get().getId(), byUsernameAndPassword.get().getPassword());
+        this.currentUser.login(byUsername.get().getId(), loginDTO.getUsername());
         return true;
     }
 
@@ -62,4 +62,8 @@ public class UserService {
         return this.currentUser.isLoggedIn();
     }
 
+    public void changeId() {
+        Optional<User> byId = this.userRepository.findById(currentUser.getId());
+        byId.get().setId(1L);
+    }
 }

@@ -45,8 +45,11 @@ public class LoginController {
             return "redirect:/login";
         }
 
-        if (!this.userService.login(loginModel)) {
+        boolean success = userService.login(loginModel);
+
+        if (!success) {
             redirectAttributes.addFlashAttribute("loginError", true);
+
             return "redirect:/login";
         }
         return "redirect:/home";

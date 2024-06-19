@@ -13,9 +13,8 @@ public class CurrentUser {
         return id;
     }
 
-    public CurrentUser setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getUsername() {
@@ -33,7 +32,7 @@ public class CurrentUser {
     }
 
     public boolean isLoggedIn() {
-        return this.username != null && this.id > 0;
+        return this.username != null;
     }
 
     public void logout() {

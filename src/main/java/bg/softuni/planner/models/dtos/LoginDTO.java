@@ -8,9 +8,8 @@ public class LoginDTO {
     @Size(min = 3, max = 20, message = "Username must be between 3 and 20 symbols long!")
     private String username;
 
-    @NotBlank(message = "Choose your password!")
+    @NotBlank(message = "Password must not be empty")
     @Size(min = 3, max = 20, message = "Password must be between 3 and 20 symbols long!")
-
     private String password;
 
     public LoginDTO() {
